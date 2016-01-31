@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title></title>
+<title>NOAA Data: Human and Economic Damage of Weather Events</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -256,7 +256,7 @@ tidy.data$EVTYPE &lt;- NULL #remove EVTYPE column
 
 <pre><code class="r">tidy.data &lt;- tidy.data[complete.cases(tidy.data[, &quot;Fatalities&quot;]),]
 tidy.data &lt;- tidy.data[complete.cases(tidy.data[, &quot;Injuries&quot;]),]
-fatalities &lt;- aggregate(x, by=list(tidy.data$Cause), FUN=sum) #sum up the fatalities by cause using aggregate
+fatalities &lt;- aggregate(tidy.data$Fatalities, by=list(tidy.data$Cause), FUN=sum) #sum up the fatalities by cause using aggregate
 injuries &lt;- aggregate(tidy.data$Injuries, by=list(tidy.data$Cause), FUN=sum)
 humans &lt;- cbind(fatalities, injuries[, 2]) #combine fatalities and injuries data
 colnames(humans) &lt;- c(&quot;Cause&quot;, &quot;Fatalities&quot;, &quot;Injuries&quot;)
