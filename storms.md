@@ -1,5 +1,5 @@
 ---
-title: "NOAA data"
+title: "NOAA Project: Human and Economic Damage Caused by Weather Events"
 output: html_document
 ---
 
@@ -53,24 +53,10 @@ We can use the dim function to see how many lines we removed as a result of clea
 
 ```r
 tidy.data$Fatalities <- as.numeric(as.character(tidy.data$Fatalities))
-```
-
-```
-## Warning: NAs introduced by coercion
-```
-
-```r
 tidy.data$Injuries <- as.numeric(as.character(tidy.data$Injuries))
-```
-
-```
-## Warning: NAs introduced by coercion
-```
-
-```r
 tidy.data <- tidy.data[complete.cases(tidy.data[, "Fatalities"]),]
 tidy.data <- tidy.data[complete.cases(tidy.data[, "Injuries"]),]
-fatalities <- aggregate(x, by=list(tidy.data$Cause), FUN=sum) #sum up the fatalities by cause using aggregate
+fatalities <- aggregate(tidy.data$Fatalities, by=list(tidy.data$Cause), FUN=sum) #sum up the fatalities by cause using aggregate
 injuries <- aggregate(tidy.data$Injuries, by=list(tidy.data$Cause), FUN=sum)
 humans <- cbind(fatalities, injuries[, 2]) #combine fatalities and injuries data
 colnames(humans) <- c("Cause", "Fatalities", "Injuries")
